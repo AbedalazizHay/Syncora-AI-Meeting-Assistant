@@ -1,0 +1,700 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #e0e1dd;
+    color: #172033;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.logo-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+
+    font-weight: 800;
+}
+
+.nav-login {
+    color: #1b263b;
+    text-decoration: none;
+    margin-left: 5px;
+    padding: 9px 18px;
+
+    border: 1px solid #6d5dfc;
+    border-radius: 9px;
+
+    transition: 0.3s;
+}
+
+.nav-login:hover {
+    background: #151927;
+    color: white;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    max-width: 1200px;
+    min-height: 650px;
+
+    margin: auto;
+    padding: 80px 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 70px;
+    background-color: linear-gradient(135deg, #effaff, #ecfdf5);;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: #a7f3d0;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    top: -100px;
+    left: -100px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border: 1px solid #302d55;
+    border-radius: 30px;
+
+    background: #111226;
+
+    color: #aaa3ff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    max-width: 650px;
+
+    font-size: clamp(48px, 6vw, 72px);
+    line-height: 1.03;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    display: block;
+
+    background: linear-gradient(
+        90deg,
+        #8b7cff,
+        #5ed4ff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-description {
+    max-width: 570px;
+
+    color: #9ca3b8;
+
+    font-size: 17px;
+    line-height: 1.8;
+
+    margin-bottom: 32px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 24px;
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 21px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #6d5dfc,
+        #805cf5
+    );
+
+    color: white;
+    text-decoration: none;
+
+    font-weight: 600;
+
+    box-shadow: 0 10px 30px rgba(109, 93, 252, 0.25);
+
+    transition: 0.3s;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 35px rgba(109, 93, 252, 0.35);
+}
+
+.secondary-button {
+    padding: 12px 20px;
+
+    border: 1px solid #292d3c;
+    border-radius: 10px;
+
+    color: #1b263b;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.secondary-button:hover {
+    background: #121624;
+    color: white;
+}
+
+.hero-note {
+    color: #73798d;
+    font-size: 13px;
+}
+
+
+/* =========================
+   HERO VISUAL
+========================= */
+
+.hero-visual {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 470px;
+}
+
+.glow {
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    background: #6255ff;
+
+    filter: blur(130px);
+
+    opacity: 0.16;
+
+    border-radius: 50%;
+}
+
+.schedule-card {
+    position: relative;
+    z-index: 2;
+
+    width: 390px;
+
+    padding: 26px;
+
+    border: 1px solid #292d3e;
+    border-radius: 18px;
+
+    background: rgba(17, 21, 34, 0.94);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.4);
+
+    transform: rotate(1deg);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 25px;
+}
+
+.small-label {
+    color: #8278ff;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.card-header h3 {
+    margin-top: 4px;
+    color: white;
+    font-size: 20px;
+}
+
+.ai-icon {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #282453;
+
+    color: #a79fff;
+}
+
+
+/* Meeting time */
+
+.meeting-time {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 15px;
+
+    background: #141827;
+
+    border-radius: 12px;
+
+    margin-bottom: 18px;
+}
+
+.calendar-icon {
+    font-size: 23px;
+}
+
+.meeting-time strong {
+    font-size: 14px;
+    color:#858b9f;
+
+}
+
+.meeting-time p {
+    color: #858b9f;
+    font-size: 12px;
+}
+
+
+/* Participants */
+
+.participants {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.avatar-one {
+    background: #29365d;
+    color: #aebfff;
+}
+
+.avatar-two {
+    background: #49304e;
+    color: #e4a9ff;
+}
+
+.avatar-three {
+    background: #234744;
+    color: #91e4d5;
+}
+
+.participant div:nth-child(2) {
+    flex: 1;
+}
+
+.participant strong {
+    display: block;
+    font-size: 13px;
+}
+
+.participant span {
+    color: #777e91;
+    font-size: 11px;
+}
+
+.check {
+    color: #68d8ae;
+    font-size: 17px;
+}
+
+
+/* Card footer */
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 20px;
+    padding-top: 18px;
+
+    border-top: 1px solid #252938;
+
+    color: #6fd7ae;
+
+    font-size: 11px;
+}
+
+.card-footer span:last-child {
+    color: #858b9e;
+}
+
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-it-works {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 100px 30px;
+}
+
+.section-heading {
+    max-width: 650px;
+
+    margin-bottom: 55px;
+}
+
+.section-label {
+    color: #8178ff;
+
+    font-size: 50px;
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.section-heading h2 {
+    margin-top: 12px;
+
+    font-size: 42px;
+    line-height: 1.15;
+
+    letter-spacing: -1.5px;
+}
+
+.section-heading h2 span {
+    color: #8178ff;
+}
+
+.section-heading p {
+    margin-top: 18px;
+
+    color: #888fa3;
+
+    font-size: 17px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.step {
+    padding: 28px;
+
+    border: 1px solid #202433;
+    border-radius: 15px;
+
+    background: #0d1b2a;
+}
+
+.step-number {
+    color: #8178ff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 28px;
+}
+
+.step h3 {
+    font-size: 18px;
+    color: #e0e1dd;
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: #778da9;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   FINAL CTA
+========================= */
+
+.final-cta {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 90px 30px;
+
+    text-align: center;
+}
+
+.final-cta > div {
+    padding: 70px 30px;
+
+    border: 1px solid #272b40;
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(108, 93, 252, 0.12),
+            transparent 60%
+        ),
+        #0d111c;
+}
+
+.final-cta h2 {
+    max-width: 700px;
+
+    margin: 15px auto;
+
+    font-size: 42px;
+    line-height: 1.15;
+
+    letter-spacing: -1.5px;
+    color: #778da9;
+}
+
+.final-cta h2 span {
+    color: #8178ff;
+}
+
+.final-cta p {
+    color: #858b9f;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 35px 30px;
+
+    border-top: 1px solid #1e2230;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #778da9;
+
+    font-size: 16px;
+}
+
+footer .logo {
+    color: #272b3a;
+}
+
+footer .logo-icon {
+    width: 28px;
+    height: 28px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        padding-top: 50px;
+
+        text-align: center;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-note {
+        text-align: center;
+    }
+
+    .hero-visual {
+        min-height: 400px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 18px;
+    }
+
+    .hero {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .hero h1 {
+        font-size: 44px;
+        letter-spacing: -2px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .schedule-card {
+        width: 100%;
+    }
+
+    .how-it-works,
+    .final-cta {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .section-heading h2,
+    .final-cta h2 {
+        font-size: 32px;
+    }
+}
