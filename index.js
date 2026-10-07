@@ -9,7 +9,12 @@ const API_URL = "https://abhi-api.vercel.app/docs";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-app.get("/",async (req, res) => {
+app.get("/",(req,res)=>{
+ res.render("partials/getStarted.ejs");
+
+})
+
+app.get("/home",async (req, res) => {
     try {
     const result = await axios.get(API_URL);
     console.log(result.data);
