@@ -12,6 +12,16 @@ app.use(express.static('public'));
 app.get("/",(req,res)=>{
  res.render("partials/getStarted.ejs");
 
+});
+app.get("/signup",(req,res)=>{
+ res.render("partials/signUp.ejs");
+
+})
+
+app.post("/dashboared",(req,res)=>{
+  console.log(req.body);
+ res.render("index.ejs");
+
 })
 
 app.get("/home",async (req, res) => {
