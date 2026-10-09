@@ -20,6 +20,7 @@
     >
       <div class="modal-dialog">
         <div class="modal-content rounded-4 shadow">
+          
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
             <button
@@ -54,6 +55,32 @@
                 <label for="floatingInput">Email address</label>
               </div>
               <div class="form-floating mb-3">
+                <select
+                  class="form-select rounded-3"
+                  id="userRole"
+                  name="userRole"
+                  required
+                >
+                  <option value="" selected disabled>Select your role</option>
+                  <option value="leader">Team Leader</option>
+                  <option value="user">Employee</option>
+                </select>
+                <label for="userRole">Your Role</label>
+              </div>
+              <div class="form-floating mb-3 d-none" id="inviteCodeContainer">
+                <input
+                  type="text"
+                  class="form-control rounded-3"
+                  id="inviteCode"
+                  name="inviteCode"
+                  placeholder="Invitation Code"
+                  autocomplete="off"
+                  disabled
+                />
+                <label for="inviteCode">Team Invitation Code</label>
+              </div>
+
+              <div class="form-floating mb-3">
                 <input
                   type="password"
                   class="form-control rounded-3"
@@ -79,7 +106,7 @@
               <button
                 class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
                 type="submit"
-                onclick="return checkPassword(event)"
+                onclick="return checkPassword(event);"
               >
                 Sign up
               </button>
@@ -126,6 +153,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/signup.js"></script>
-    
   </body>
 </html>

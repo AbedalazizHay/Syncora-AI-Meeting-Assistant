@@ -1,4 +1,22 @@
- function checkPassword(event) {
+
+const userRole = document.getElementById("userRole");
+const inviteCodeContainer = document.getElementById("inviteCodeContainer");
+const inviteCode = document.getElementById("inviteCode");
+   userRole.addEventListener("change", function () {
+const isEmployee = this.value === "user"; 
+    // Show invitation field only for employees 
+    inviteCodeContainer.classList.toggle("d-none", !isEmployee); 
+    // Require the code only for employees 
+    inviteCode.required = isEmployee;
+    inviteCode.disabled = !isEmployee;
+     // Clear the code when switching to leader
+     if (!isEmployee) { 
+        inviteCode.value = "";
+     }
+     });
+
+
+function checkPassword(event) {
         const password = document.getElementById("password").value;
         const confirmPassword =
           document.getElementById("confirmPassword").value;
@@ -20,3 +38,4 @@
           document.getElementById("passwordError").textContent = "";
           this.classList.remove("is-invalid");
         });
+
