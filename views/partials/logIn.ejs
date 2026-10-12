@@ -16,6 +16,31 @@
         margin: 0;
         height: 100vh;
       }
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centers the icon and text horizontally */
+        gap: 10px;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-top: 2rem; /* Adds space between the top of the card and the logo */
+      }
+
+      .logo-icon {
+        width: 44px;
+        height: 44px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+
+        font-weight: 800;
+      }
     </style>
   </head>
   <body>
@@ -25,16 +50,18 @@
       role="dialog"
       id="modalSignin"
     >
-      <div class="modal-dialog" style="width: 100%; max-width: 480px; margin: auto;">
+      <div
+        class="modal-dialog"
+        style="width: 100%; max-width: 480px; margin: auto"
+      >
         <div class="modal-content rounded-4 shadow">
+          <div class="logo d-flex justify-content-center pt-4">
+            <div class="logo-icon">S</div>
+          </div>
+
           <div class="modal-header p-5 pb-4 border-bottom-0">
-            <h1 class="fw-bold mb-0 fs-2 ">Log in to your account</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <h1 class="fw-bold mb-0 fs-2">Log in to your account</h1>
+            <a href="/" class="btn-close" aria-label="Close"></a>
           </div>
           <div class="modal-body p-5 pt-0">
             <form class="" method="post" id="myForm" action="/dashboared">
@@ -69,11 +96,11 @@
                 Login
               </button>
 
-              <div class="  text-center mt-3 mb-2">
+              <div class="text-center mt-3 mb-2">
                 <small class="text-body-secondary"
                   >Don't have an account?</small
                 >
-                <a href="/signup" class="text-decoration-none fw-bold ms-1 " 
+                <a href="/signup" class="text-decoration-none fw-bold ms-1"
                   >Sign Up</a
                 >
               </div>
