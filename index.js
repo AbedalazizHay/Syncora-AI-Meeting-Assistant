@@ -18,12 +18,19 @@ app.get("/signup",(req,res)=>{
 
 })
 
-app.post("/dashboared",(req,res)=>{
+
+
+app.post("/login",(req,res)=>{
   console.log(req.body);
- res.render("index.ejs");
+ res.render("partials/logIn.ejs");
 
 })
 
+app.get("/login",(req,res)=>{
+  
+ res.render("partials/logIn.ejs");
+
+})
 app.get("/home",async (req, res) => {
     try {
     const result = await axios.get(API_URL);
