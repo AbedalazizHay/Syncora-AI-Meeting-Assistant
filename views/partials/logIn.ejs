@@ -44,7 +44,7 @@
     </style>
   </head>
   <body>
-    <% if (error === "Invalid email or password.") { %>
+    <% if (locals.error) { %>
   <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm"
        role="alert">
 

@@ -12,6 +12,23 @@
     />
   </head>
   <body>
+     <% if (locals.error) { %>
+  <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm"
+       role="alert">
+
+    <i class="bi bi-exclamation-circle-fill fs-5"></i>
+
+    <div>
+      <strong>Login failed</strong>
+      <div>invalid-invitation. Please try again.</div>
+    </div>
+
+    <button type="button"
+            class="btn-close ms-auto"
+            data-bs-dismiss="alert"
+            aria-label="Close"></button>
+  </div>
+<% } %>
     <div
       class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5"
       tabindex="-1"
@@ -57,7 +74,7 @@
                 >
                   <option value="" selected disabled>Select your role</option>
                   <option value="leader">Team Leader</option>
-                  <option value="user">Employee</option>
+                  <option value="user">User</option>
                 </select>
                 <label for="userRole">Your Role</label>
               </div>
