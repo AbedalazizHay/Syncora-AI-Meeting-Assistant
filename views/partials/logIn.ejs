@@ -44,6 +44,23 @@
     </style>
   </head>
   <body>
+    <% if (error === "Invalid email or password.") { %>
+  <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3 shadow-sm"
+       role="alert">
+
+    <i class="bi bi-exclamation-circle-fill fs-5"></i>
+
+    <div>
+      <strong>Login failed</strong>
+      <div>Invalid email or password. Please try again.</div>
+    </div>
+
+    <button type="button"
+            class="btn-close ms-auto"
+            data-bs-dismiss="alert"
+            aria-label="Close"></button>
+  </div>
+<% } %>
     <div
       class="modal modal-sheet position-static d-flex bg-body-secondary p-4 py-md-5 justify-content-center align-items-center"
       tabindex="-1"
@@ -64,7 +81,7 @@
             <a href="/" class="btn-close" aria-label="Close"></a>
           </div>
           <div class="modal-body p-5 pt-0">
-            <form class="" method="post" id="myForm" action="/dashboared">
+            <form class="" method="post" id="myForm" action="/register">
               <div class="form-floating mb-3">
                 <input
                   type="email"
