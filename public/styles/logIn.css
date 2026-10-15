@@ -1,0 +1,30 @@
+body {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centers the icon and text horizontally */
+        gap: 10px;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-top: 2rem; /* Adds space between the top of the card and the logo */
+      }
+
+      .logo-icon {
+        width: 44px;
+        height: 44px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: linear-gradient(135deg, #6d5dfc, #8b5cf6);
+
+        font-weight: 800;
+      }

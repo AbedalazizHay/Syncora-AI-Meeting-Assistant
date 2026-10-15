@@ -29,12 +29,48 @@ app.get("/signup",(req,res)=>{
   error: req.query.error
  });
 
-})
+});
+app.get("/login",(req,res)=>{
+  
+ res.render("partials/logIn.ejs", {
+  error: req.query.error
+ });
+
+});
+app.get("/leaderPage/:leaderId",(req,res)=>{
+  const leader= leaders.find(leader=>leader.leaderId===req.params.leaderId);
+  console.log(leader);
+  if(!leader){
+    return res.status(404).send("leader not found ");
+  }
+  const team= teams.find(team=>team.leaderId===leader.leaderId);
+  if(!team){
+    return res.status(404).send("team not found");
+  }
+  console.log(team);
+  const invitation= invitaions.find(invitation=>
+    invitation.teamId===team.teamId &&
+    !invitation.revoked &&
+    invitation.expiresAt > Date.now()  
+  );
+  console.log (invitation);
+  const employeeCount=memberships.filter(membership=>membership.teamId===team.teamId).length;
+
+  res.render("partials/leader.ejs", {
+  leader,
+  team,
+  invitation,
+  employeeCount
+ });
+
+});
+
 app.post("/register",async(req,res)=>{
   try{
 const email=req.body.userEmail;
 const password= req.body.userPassword;
 const leader= leaders.find(leader=>leader.leaderEmail===email);
+console.log(leader);
 if(leader){
   const checkPassword= await bcrypt.compare(
   password,
@@ -44,7 +80,7 @@ if(!checkPassword){
    return res.redirect("/login?error=Invalid email or password.");
 
 }
-  return res.render("index.ejs");
+  return res.redirect(`/leaderPage/${leader.leaderId}`);
    
 }
 
@@ -73,7 +109,6 @@ const user = users.find(
     return res.status(500).send("Something went wrong. Please try again.");
   }
 });
-
 
 app.post("/login",async(req,res)=>{
 
@@ -147,13 +182,7 @@ const newInvitation= {
 });
 
 
-app.get("/login",(req,res)=>{
-  
- res.render("partials/logIn.ejs", {
-  error: req.query.error
- });
 
-})
 
 
 app.listen(port, () => {
