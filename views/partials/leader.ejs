@@ -108,16 +108,35 @@
       <div class="page-content">
 
         <!-- Welcome -->
-        <section class="welcome-section">
-          <div>
-            <p class="eyebrow">YOUR TEAM AT A GLANCE</p>
-            <h1>Welcome back, <%= leader.leaderName %> 👋</h1>
-            <p class="welcome-description">
-              Plan smarter meetings and bring your team together,
-              wherever they are.
-            </p>
-          </div>
-        </section>
+        <div class="dashboard-top">
+
+  <!-- Welcome heading -->
+  <div class="welcome-section">
+    <h1>Good morning, <%= leader.leaderName %>!</h1>
+    <p>Here's what's happening with your team today.</p>
+  </div>
+
+  <!-- Small local time widget -->
+  <div class="timezone-widget">
+    <div class="timezone-details">
+      <span class="timezone-label">LOCAL TIME</span>
+      <strong id="localTime"><%= time %></strong>
+      <span id="localTimeCity">Rotterdam, Netherlands</span>
+      <small id="localTimeZone"><%= timezone %></small>
+    </div>
+
+    <button
+      type="button"
+      class="timezone-edit-btn"
+      id="editTimezoneBtn"
+    >
+      ✎ Edit
+    </button>
+  </div>
+
+</div>
+
+        
 
         <!-- Summary cards -->
         <section class="stats-grid">
@@ -249,6 +268,39 @@
       </div>
     </main>
   </div>
+  <script>
+    const timeElement = document.getElementById('localTime');
+
+    // Read the API timestamp once
+    const startTime = new Date(
+        timeElement.textContent.trim()
+    ).getTime();
+
+    function updateTime() {
+        // Calculate the current time based on the original API timestamp
+        const currentTime = new Date(
+            startTime + (Date.now() - pageLoadTime)
+        );
+
+        timeElement.textContent = new Intl.DateTimeFormat('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+            timeZone: 'Europe/Amsterdam'
+        }).format(currentTime);
+    }
+
+    const pageLoadTime = Date.now();
+
+    updateTime();
+
+    // Update every second without an API request
+    setInterval(updateTime, 1000);
+</script>
   <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

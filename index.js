@@ -4,9 +4,12 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import crypto from 'node:crypto';
 import bcrypt from "bcryptjs";
+
 const app = express();
 const port = 3000;
 const API_URL = "https://abhi-api.vercel.app/docs";
+
+const apiKey= "3fa141cf96msh01118868d31b9e9p1ca6fdjsn088d03b6891a";
 let leaders=[];
 let teams=[];
 let invitaions=[];
@@ -37,7 +40,14 @@ app.get("/login",(req,res)=>{
  });
 
 });
-app.get("/leaderPage/:leaderId",(req,res)=>{
+app.get("/leaderPage/:leaderId",async(req,res)=>{
+  try{
+  const response= await axios.get("https://world-time-api3.p.rapidapi.com/ip",{
+      headers: {    
+        'x-rapidapi-key': apiKey,
+      },
+    });
+  const result= response.data;
   const leader= leaders.find(leader=>leader.leaderId===req.params.leaderId);
   console.log(leader);
   if(!leader){
@@ -60,9 +70,14 @@ app.get("/leaderPage/:leaderId",(req,res)=>{
   leader,
   team,
   invitation,
-  employeeCount
+  employeeCount,
+  timezone:result.timezone,
+  time:result.datetime
  });
-
+  }catch (error) {
+    console.error("fialed", error);
+    return res.status(500).send("Something went wrong. Please try again.");
+  }
 });
 
 app.post("/register",async(req,res)=>{
