@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/timezoneWidget.css">
+</head>
+<body>
+    <% if (locals) { %>
+              <!-- Small local time widget -->
+              <div class="timezone-area">
+
+                <div class="timezone-widget">
+                  <div class="timezone-details">
+                    <span class="timezone-label">YOUR LOCAL TIME</span>
+                    <strong id="localTime"><%= time %></strong>
+                    <span id="localTimeCity"><%= country %></span>
+                    <small id="localTimeZone"><%= timezone %></small>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="timezone-edit-btn"
+                    id="editTimezoneBtn"
+                  >
+                    ✎ Edit
+                  </button>
+                </div>
+
+                <!-- Timezone editor: hidden initially -->
+                <div class="timezone-editor" id="timezoneEditor" hidden>
+                  <label for="timezoneSearch">Change timezone</label>
+
+                  <form id="timezoneSearchForm" class="timezone-search">
+                    <input
+                      type="text"
+                      id="timezoneSearch"
+                      placeholder="Search area, e.g. Asia"
+                      autocomplete="off"
+                    >
+                    <button type="submit" class="search-btn">Search</button>
+                  </form>
+
+                  <div
+                    class="timezone-results"
+                    id="timezoneResults"
+                    role="radiogroup"
+                    aria-label="Timezone results"
+                  >
+                    <p class="timezone-hint">
+                      Search for an area to find timezones.
+                    </p>
+                  </div>
+
+                  <div class="timezone-editor-actions">
+                    <button
+                      type="button"
+                      class="cancel-btn"
+                      id="cancelTimezoneBtn"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="button"
+                      class="save-btn"
+                      id="saveTimezoneBtn"
+                      disabled
+                    >
+                      Save timezone
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            <% } %>
+         <script src="/js/clock.js"></script>
+         <script src="/js/widget.js"></script>
+</body>
+</html>

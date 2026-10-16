@@ -24,18 +24,18 @@ function generateInviteCode() {
 }
 
 app.get("/",(req,res)=>{
- res.render("partials/getStarted.ejs");
+ res.render("getStarted.ejs");
 
 });
 app.get("/signup",(req,res)=>{
- res.render("partials/signUp.ejs",{
+ res.render("signUp.ejs",{
   error: req.query.error
  });
 
 });
 app.get("/login",(req,res)=>{
   
- res.render("partials/logIn.ejs", {
+ res.render("logIn.ejs", {
   error: req.query.error
  });
 
@@ -48,6 +48,14 @@ app.get("/leaderPage/:leaderId",async(req,res)=>{
       },
     });
   const result= response.data;
+  const responseLocation= await axios.get("https://world-time-api3.p.rapidapi.com/geo",{
+      headers: {    
+        'x-rapidapi-key': apiKey,
+      },
+    });
+
+  const resultLocation= responseLocation.data;
+  
   const leader= leaders.find(leader=>leader.leaderId===req.params.leaderId);
   console.log(leader);
   if(!leader){
@@ -66,13 +74,14 @@ app.get("/leaderPage/:leaderId",async(req,res)=>{
   console.log (invitation);
   const employeeCount=memberships.filter(membership=>membership.teamId===team.teamId).length;
 
-  res.render("partials/leader.ejs", {
+  res.render("leader.ejs", {
   leader,
   team,
   invitation,
   employeeCount,
   timezone:result.timezone,
-  time:result.datetime
+  time:result.datetime,
+  country:resultLocation.country.name
  });
   }catch (error) {
     console.error("fialed", error);
@@ -117,7 +126,7 @@ const user = users.find(
       return res.redirect("/login?error=invalid");
     }
 
-    return res.render("partials/user.ejs");
+    return res.render("user.ejs");
 
   } catch (error) {
     console.error("Login failed:", error);
