@@ -9,6 +9,7 @@
 <body>
     <% if (locals) { %>
               <!-- Small local time widget -->
+               <div class="timezone-modal-overlay" id="timezoneModalOverlay" hidden></div>
               <div class="timezone-area">
 
                 <div class="timezone-widget">
@@ -74,6 +75,7 @@
                 </div>
 
               </div>
+              
             <% } %>
          <script src="/js/clock.js"></script>
          <script src="/js/widget.js"></script>
