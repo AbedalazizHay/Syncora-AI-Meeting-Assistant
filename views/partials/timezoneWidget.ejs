@@ -19,14 +19,15 @@
                     <span id="localTimeCity"><%= country %></span>
                     <small id="localTimeZone"><%= timezone %></small>
                   </div>
-
+                  
                   <button
-                    type="button"
+                    type="submit"
                     class="timezone-edit-btn"
                     id="editTimezoneBtn"
                   >
                     ✎ Edit
                   </button>
+                 
                 </div>
 
                 <!-- Timezone editor: hidden initially -->
@@ -49,9 +50,22 @@
                     role="radiogroup"
                     aria-label="Timezone results"
                   >
+                   
                     <p class="timezone-hint">
-                      Search for an area to find timezones.
+                     Or input your area to find timezones.
                     </p>
+                    <% if(locals.timezones){ %>
+                      <% timezones.forEach((zone,index) => {%>
+                      <label class="timezone-option">
+                      <input
+                        type="radio"
+                        name="timezone"
+                        value="<%= zone %>"
+                      >
+                      <span><%= zone %></span>
+                    </label>
+                     <% }); %>
+                      <% } %>
                   </div>
 
                   <div class="timezone-editor-actions">

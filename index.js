@@ -4,12 +4,13 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import crypto from 'node:crypto';
 import bcrypt from "bcryptjs";
+import { time } from "node:console";
 
 const app = express();
 const port = 3000;
-const API_URL = "https://abhi-api.vercel.app/docs";
-
+const API_URL = "https://world-time-api3.p.rapidapi.com";
 const apiKey= "3fa141cf96msh01118868d31b9e9p1ca6fdjsn088d03b6891a";
+
 let leaders=[];
 let teams=[];
 let invitaions=[];
@@ -40,22 +41,31 @@ app.get("/login",(req,res)=>{
  });
 
 });
+
 app.get("/leaderPage/:leaderId",async(req,res)=>{
   try{
-  const response= await axios.get("https://world-time-api3.p.rapidapi.com/ip",{
-      headers: {    
-        'x-rapidapi-key': apiKey,
-      },
-    });
-  const result= response.data;
-  const responseLocation= await axios.get("https://world-time-api3.p.rapidapi.com/geo",{
-      headers: {    
-        'x-rapidapi-key': apiKey,
-      },
-    });
-
-  const resultLocation= responseLocation.data;
   
+  const responseIp= await axios.get(API_URL+"/ip",{
+      headers: {    
+        'x-rapidapi-key': apiKey,
+      },
+    });
+  const result= responseIp.data;
+  const timezone=result.timezone;
+  const currentTime = result.datetime;
+  const responseLocation= await axios.get(API_URL+"/geo",{
+      headers: {    
+        'x-rapidapi-key': apiKey,
+      },
+    });
+  const resultLocation= responseLocation.data;
+  const countryName = resultLocation.country.name;
+  const response= await axios.get(API_URL+"/timezone",{
+  headers:{
+     'x-rapidapi-key': apiKey,
+  }
+  });
+  const allTimezones = response.data;
   const leader= leaders.find(leader=>leader.leaderId===req.params.leaderId);
   console.log(leader);
   if(!leader){
@@ -79,15 +89,38 @@ app.get("/leaderPage/:leaderId",async(req,res)=>{
   team,
   invitation,
   employeeCount,
-  timezone:result.timezone,
-  time:result.datetime,
-  country:resultLocation.country.name
+  time:currentTime,
+  timezone:timezone,
+  country:countryName,
+  timezones:allTimezones
  });
   }catch (error) {
     console.error("fialed", error);
     return res.status(500).send("Something went wrong. Please try again.");
   }
 });
+
+// app.get("/get-all-timezones",async(req,res)=>{
+//   try{
+// const response= await axios.get(API_URL+"/timezone",{
+//   headers:{
+//      'x-rapidapi-key': apiKey,
+//   }
+// }) 
+
+// console.log(result);
+// res.render("partials/timezoneWidget.ejs",{
+//   timezones:result
+// });
+//   }catch(error){
+//     console.error("faild to make request:"+error.message);
+//     res.render("partials/timezoneWidget.ejs",
+//     {
+//       error:error.message
+//     });
+//   }
+
+// });
 
 app.post("/register",async(req,res)=>{
   try{
@@ -204,9 +237,6 @@ const newInvitation= {
     return res.status(500).send("Registration failed.");
   }
 });
-
-
-
 
 
 app.listen(port, () => {
