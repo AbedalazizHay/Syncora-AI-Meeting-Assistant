@@ -124,7 +124,11 @@
 .save-btn:hover:not(:disabled) {
   background: #105b53;
 }
-
+#timezoneError {
+  margin: 6px 0 0;
+  color: #c0392b;
+  font-size: 12px;
+}
 .timezone-results {
   display: flex;
   flex-direction: column;

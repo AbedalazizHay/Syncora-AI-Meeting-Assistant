@@ -4,7 +4,7 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import crypto from 'node:crypto';
 import bcrypt from "bcryptjs";
-import { time } from "node:console";
+
 
 const app = express();
 const port = 3000;
@@ -17,8 +17,11 @@ let invitaions=[];
 let users=[];
 let memberships=[];
 
+let aria;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 function generateInviteCode() {
   return crypto.randomBytes(16).toString("hex");
@@ -41,6 +44,7 @@ app.get("/login",(req,res)=>{
  });
 
 });
+
 
 app.get("/leaderPage/:leaderId",async(req,res)=>{
   try{
@@ -121,7 +125,26 @@ app.get("/leaderPage/:leaderId",async(req,res)=>{
 //   }
 
 // });
+app.post("/findTimezone",async(req,res)=>{
 
+const area = req.body.area;
+console.log(area);
+
+try{
+  const response = await axios.get(API_URL+"/timezone/"+area,{
+     headers: {    
+        'x-rapidapi-key': apiKey,
+      },
+  });
+
+  const result = response.data;
+ res.json({ timezones: result });
+
+}catch(error){
+  console.error("Failed to make request:", error.message);
+    res.status(error.response.status).json({error:error.response.data.error});
+}
+});
 app.post("/register",async(req,res)=>{
   try{
 const email=req.body.userEmail;
@@ -238,7 +261,32 @@ const newInvitation= {
   }
 });
 
+app.post("/saveTimezone",async(req,res)=>{
+  const timezone = req.body.timezone;
+  console.log(timezone);
+  try{
+    const response= await axios.get(API_URL+"/timezone/"+timezone,{
+      headers:{
+         'x-rapidapi-key': apiKey,
+      },
 
+    });
+    const result = response.data;
+    console.log(result);
+    const selectedTimezone=result.timezone;
+    const currentTime = result.datetime;
+    const location= timezone;
+    res.json({
+      time:currentTime,
+      country:location,
+      timezone:selectedTimezone
+    })
+  }catch(error){
+    console.error("the error is :"+ error);
+    res.status(error.response.status).json(error.response.data.error);
+  }
+  
+})
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

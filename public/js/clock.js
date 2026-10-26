@@ -1,31 +1,38 @@
-const timeElement = document.getElementById('localTime');
+const timeElement = document.getElementById("localTime");
+const cityElement = document.getElementById("localTimeCity");
+const timezoneElement = document.getElementById("localTimeZone");
 
-    // Read the API timestamp once
-    const startTime = new Date(
-        timeElement.textContent.trim()
-    ).getTime();
+let startTime = new Date(timeElement.textContent.trim()).getTime();
+let pageLoadTime = Date.now();
+let currentTimezone = timezoneElement.textContent.trim();
 
-    function updateTime() {
-        // Calculate the current time based on the original API timestamp
-        const currentTime = new Date(
-            startTime + (Date.now() - pageLoadTime)
-        );
+function updateTime() {
+  const currentTime = new Date(
+    startTime + (Date.now() - pageLoadTime)
+  );
 
-        timeElement.textContent = new Intl.DateTimeFormat('en-GB', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false,
-            timeZone: 'Europe/Amsterdam'
-        }).format(currentTime);
-    }
+  timeElement.textContent = new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: currentTimezone
+  }).format(currentTime);
+}
 
-    const pageLoadTime = Date.now();
+window.setTimezone = function (time, country, timezone) {
+  startTime = new Date(time).getTime();
+  pageLoadTime = Date.now();
+  currentTimezone = timezone;
 
-    updateTime();
+  cityElement.textContent = country;
+  timezoneElement.textContent = timezone;
 
-    // Update every second without an API request
-    setInterval(updateTime, 1000);
+  updateTime();
+}
+
+updateTime();
+setInterval(updateTime, 1000);

@@ -16,7 +16,9 @@
                   <div class="timezone-details">
                     <span class="timezone-label">YOUR LOCAL TIME</span>
                     <strong id="localTime"><%= time %></strong>
+                    <% if(locals.country){ %>
                     <span id="localTimeCity"><%= country %></span>
+                    <% } %>
                     <small id="localTimeZone"><%= timezone %></small>
                   </div>
                   
@@ -34,22 +36,24 @@
                 <div class="timezone-editor" id="timezoneEditor" hidden>
                   <label for="timezoneSearch">Change timezone</label>
 
-                  <form id="timezoneSearchForm" class="timezone-search">
+                  <form id="timezoneSearchForm" class="timezone-search" action="/findTimezone" method="POST">
                     <input
                       type="text"
                       id="timezoneSearch"
                       placeholder="Search area, e.g. Asia"
                       autocomplete="off"
+                      name="area"
                     >
                     <button type="submit" class="search-btn">Search</button>
                   </form>
-
+                  <p id="timezoneError"></p>
+                  <form  method="post" id="saveNewTimezone" action="/saveTimezone">
                   <div
                     class="timezone-results"
                     id="timezoneResults"
                     role="radiogroup"
                     aria-label="Timezone results"
-                  >
+                   >
                    
                     <p class="timezone-hint">
                      Or input your area to find timezones.
@@ -58,9 +62,11 @@
                       <% timezones.forEach((zone,index) => {%>
                       <label class="timezone-option">
                       <input
+                        class="timezone-radio"
                         type="radio"
                         name="timezone"
                         value="<%= zone %>"
+                        onchange="makeRequest()"
                       >
                       <span><%= zone %></span>
                     </label>
@@ -78,14 +84,16 @@
                     </button>
 
                     <button
-                      type="button"
+                      type="submit"
                       class="save-btn"
                       id="saveTimezoneBtn"
                       disabled
+                      
                     >
                       Save timezone
                     </button>
                   </div>
+                  </form>
                 </div>
 
               </div>
