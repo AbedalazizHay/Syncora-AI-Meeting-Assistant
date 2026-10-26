@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const widget = document.querySelector(".timezone-area");
   if (!widget) return;
-
+  const results = document.getElementById("timezoneResults");
+  const originalTimezoneList = results.innerHTML;
   const editButton = widget.querySelector("#editTimezoneBtn");
   const editor = widget.querySelector("#timezoneEditor");
   const cancelButton = widget.querySelector("#cancelTimezoneBtn");
   const overlay = document.querySelector("#timezoneModalOverlay");
   
   function openEditor() {
+    results.innerHTML = originalTimezoneList;
+    document.getElementById("timezoneSearch").value = "";
     editor.hidden = false;
     overlay.hidden = false;
     editButton.setAttribute("aria-expanded", "true");
@@ -119,8 +122,8 @@ saveTimezone.addEventListener("submit",async(event)=>{
     console.log(data.error);
     return;
   }
-  window.setTimezone(data.time,data.timezone);
-   window.closeEditor();
+  window.setTimezone(data.time,data.country,data.timezone);
+  window.closeEditor();
 console.log(data)
   }catch(error){
   console.error(error);
