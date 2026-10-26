@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/timezoneWidget.css">
+</head>
+<body>
+    <% if (locals) { %>
+              <!-- Small local time widget -->
+               <div class="timezone-modal-overlay" id="timezoneModalOverlay" hidden></div>
+              <div class="timezone-area">
+
+                <div class="timezone-widget">
+                  <div class="timezone-details">
+                    <span class="timezone-label">YOUR LOCAL TIME</span>
+                    <strong id="localTime"><%= time %></strong>
+                    <% if(locals.country){ %>
+                    <span id="localTimeCity"><%= country %></span>
+                    <% } %>
+                    <small id="localTimeZone"><%= timezone %></small>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    class="timezone-edit-btn"
+                    id="editTimezoneBtn"
+                  >
+                    ✎ Edit
+                  </button>
+                 
+                </div>
+
+                <!-- Timezone editor: hidden initially -->
+                <div class="timezone-editor" id="timezoneEditor" hidden>
+                  <label for="timezoneSearch">Change timezone</label>
+
+                  <form id="timezoneSearchForm" class="timezone-search" action="/findTimezone" method="POST">
+                    <input
+                      type="text"
+                      id="timezoneSearch"
+                      placeholder="Search area, e.g. Asia"
+                      autocomplete="off"
+                      name="area"
+                    >
+                    <button type="submit" class="search-btn">Search</button>
+                  </form>
+                  <p id="timezoneError"></p>
+                  <form  method="post" id="saveNewTimezone" action="/saveTimezone">
+                  <div
+                    class="timezone-results"
+                    id="timezoneResults"
+                    role="radiogroup"
+                    aria-label="Timezone results"
+                   >
+                   
+                    <p class="timezone-hint">
+                     Or input your area to find timezones.
+                    </p>
+                    <% if(locals.timezones){ %>
+                      <% timezones.forEach((zone,index) => {%>
+                      <label class="timezone-option">
+                      <input
+                        class="timezone-radio"
+                        type="radio"
+                        name="timezone"
+                        value="<%= zone %>"
+                        onchange="makeRequest()"
+                      >
+                      <span><%= zone %></span>
+                    </label>
+                     <% }); %>
+                      <% } %>
+                  </div>
+
+                  <div class="timezone-editor-actions">
+                    <button
+                      type="button"
+                      class="cancel-btn"
+                      id="cancelTimezoneBtn"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      class="save-btn"
+                      id="saveTimezoneBtn"
+                      disabled
+                      
+                    >
+                      Save timezone
+                    </button>
+                  </div>
+                  </form>
+                </div>
+
+              </div>
+              
+            <% } %>
+         <script src="/js/clock.js"></script>
+         <script src="/js/widget.js"></script>
+</body>
+</html>

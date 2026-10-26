@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syncora | Leader Dashboard</title>
+
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+  <link rel="stylesheet" href="/styles/leaderDashboard.css">
+</head>
+
+<body>
+  <div class="dashboard">
+      
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="#" class="brand">
+        <span class="brand-icon">
+          S
+          <i class="bi bi-globe-americas"></i>
+        </span>
+        <span>Syncora</span>
+      </a>
+
+      <p class="sidebar-label">WORKSPACE</p>
+
+      <nav class="sidebar-nav">
+        <a href="/leader/<%= leader.leaderId %>"
+           class="nav-link active">
+          <i class="bi bi-grid-1x2-fill"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#ai-assistant" class="nav-link">
+          <i class="bi bi-stars"></i>
+          <span>AI Meeting Assistant</span>
+        </a>
+
+        <a href="#upcoming-meetings" class="nav-link">
+          <i class="bi bi-calendar3"></i>
+          <span>Meetings</span>
+        </a>
+
+        <a href="#employees" class="nav-link">
+          <i class="bi bi-people"></i>
+          <span>Employees</span>
+        </a>
+
+        <a href="#settings" class="nav-link">
+          <i class="bi bi-gear"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <i class="bi bi-lightbulb"></i>
+          <p class="mb-1 fw-semibold">Work smarter</p>
+          <p class="small mb-0">
+            Let AI help coordinate meetings across time zones.
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+      <!-- Top bar -->
+      <header class="topbar">
+        <div>
+          <span class="workspace-label">WORKSPACE</span>
+          <p class="workspace-name mb-0">
+            <%= team.teamName %>
+          </p>
+        </div>
+
+        <div class="topbar-actions">
+          <button type="button" class="icon-button"
+                  aria-label="Notifications">
+            <i class="bi bi-bell"></i>
+          </button>
+
+          <div class="profile">
+            <div class="avatar">
+              <%= leader.leaderName.charAt(0).toUpperCase() %>
+            </div>
+
+            <span class="profile-name">
+              <%= leader.leaderName %>
+            </span>
+          </div>
+
+          <a href="/login" class="logout-link">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+          </a>
+        </div>
+      </header>
+
+      <div class="page-content">
+
+        <!-- Welcome -->
+        <div class="dashboard-top">
+
+            <!-- Welcome heading -->
+              <div class="welcome-section">
+                <h1>Good morning, <%= leader.leaderName %>!</h1>
+                <p>Here's what's happening with your team today.</p>
+              </div>
+              
+                <%- include("partials/timezoneWidget.ejs") %>
+       </div>
+
+        
+
+        <!-- Summary cards -->
+        <section class="stats-grid">
+
+          <article class="stat-card">
+            <div class="stat-icon purple">
+              <i class="bi bi-people"></i>
+            </div>
+            <p class="stat-label">Employees</p>
+            <h2><%= employeeCount %></h2>
+            <p class="stat-note">Members in your team</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon blue">
+              <i class="bi bi-calendar-event"></i>
+            </div>
+            <p class="stat-label">Upcoming meetings</p>
+            <h2>0</h2>
+            <p class="stat-note">Ready to plan your first meeting?</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon orange">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <p class="stat-label">Meetings scheduled</p>
+            <h2>0</h2>
+            <p class="stat-note">Your team's meeting activity</p>
+          </article>
+
+        </section>
+
+        <!-- AI Assistant -->
+        <section class="assistant-card" id="ai-assistant">
+          <div class="assistant-heading">
+            <div class="assistant-icon">
+              <span class="brand-icon">
+                S
+              <i class="bi bi-stars"></i>
+              </span>
+              
+            </div>
+            <div>
+              <p class="eyebrow mb-1">YOUR AI-POWERED PLANNER</p>
+              <h2>AI Meeting Assistant</h2>
+              <p class="text-muted mb-0">
+                Describe your meeting. We'll help find a suitable time.
+              </p>
+            </div>
+          </div>
+
+          <form action="#" method="POST" id="meetingForm">
+            <label for="meetingDescription" class="form-label">
+              What meeting do you need?
+            </label>
+
+            <textarea
+              id="meetingDescription"
+              name="meetingDescription"
+              class="form-control meeting-input"
+              rows="4"
+              placeholder="For example: Schedule a 45-minute project meeting with Ahmed and John next week. Everyone should be available during their local working hours."
+              required
+            ></textarea>
+
+            <div class="assistant-footer">
+              <span class="input-hint">
+                <i class="bi bi-globe2"></i>
+                Designed for teams across time zones
+              </span>
+
+              <button type="submit" class="primary-button">
+                <i class="bi bi-stars"></i>
+                Find Meeting Time
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Upcoming meetings -->
+        <section class="meetings-section" id="upcoming-meetings">
+          <div class="section-heading">
+            <div>
+              <h2>Upcoming Meetings</h2>
+              <p>Keep track of your team's schedule.</p>
+            </div>
+          </div>
+
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="bi bi-calendar2-plus"></i>
+            </div>
+            <h3>No meetings scheduled yet</h3>
+            <p>
+              Use the AI Meeting Assistant to start planning your
+              team's next meeting.
+            </p>
+            <a href="#ai-assistant" class="text-link">
+              Plan a meeting <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </section>
+
+        <!-- Invitation information -->
+        <section class="invitation-card" id="employees">
+          <div class="invitation-icon">
+            <i class="bi bi-person-plus"></i>
+          </div>
+
+          <div class="invitation-copy">
+            <h2>Grow your team</h2>
+            <p>
+              Invite employees to join <%= team.teamName %>
+              so you can coordinate meetings together.
+            </p>
+          </div>
+
+          <div class="invitation-status">
+            <% if (invitation) { %>
+              <span class="status-dot"></span>
+              Invitation available
+            <% } else { %>
+              Invitation unavailable
+            <% } %>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+ 
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
